@@ -1,0 +1,80 @@
+name: Deploy Spring Boot Application
+
+run-name: ${{ github.actor }} is deploying project
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+
+  list-files:
+    name: List repository files
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: List files
+        run: ls -al
+
+  build-and-test:
+    name: Build and Test Spring Boot Project
+    runs-on: ubuntu-22.04
+    needs: list-files
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Java 21
+        uses: actions/setup-java@v5
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+
+      - name: Cache Maven dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+
+      - name: Build with Maven
+        run: mvn clean install -B
+
+      - name: Run tests
+        run: mvn test -B
+
+  deploy:
+    name: Deploy to Server
+    runs-on: ubuntu-22.04
+    needs: build-and-test
+    if: success()  # Déploye seulement si build et tests réussissent
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Copy files to server via SSH
+        uses: appleboy/ssh-action@v0.1.6
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SERVER_SSH_KEY }}
+          port: 22
+          source: "target/*.jar"
+          target: "/home/username/app/"
+
+      - name: Restart application
+        uses: appleboy/ssh-action@v0.1.6
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SERVER_SSH_KEY }}
+          port: 22
+          script: |
+            pkill -f 'java -jar myapp.jar' || true
+            nohup java -jar /home/username/app/myapp.jar > /home/username/app/app.log 2>&1 &
