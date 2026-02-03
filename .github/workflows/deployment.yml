@@ -58,6 +58,7 @@ jobs:
           target: /opt/ms-clinique-rabat/microservices/GestionClinique-0.0.1-SNAPSHOT.jar
           overwrite: true
 
+
   run-project:
     name: Run application on server
     runs-on: ubuntu-latest
