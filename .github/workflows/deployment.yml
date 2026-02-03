@@ -83,4 +83,3 @@ jobs:
               --spring.datasource.url=${{ secrets.DATABASE_URL }} \
               --spring.sql.init.mode=true \
               > /opt/ms-clinique-rabat/app.log 2>&1 &
-  
