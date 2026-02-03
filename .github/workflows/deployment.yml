@@ -76,14 +76,38 @@ jobs:
             DB_PASS=${{ secrets.DATABASE_USERPASSWORD }}
             DB_URL=${{ secrets.DATABASE_URL }}
           script: |
-            # Stop old process if running
-            pkill -f GestionClinique-0.0.1-SNAPSHOT.jar || true
+            JAR_PATH=/opt/ms-clinique-rabat/microservices/GestionClinique-0.0.1-SNAPSHOT.jar
+            LOG_PATH=/opt/ms-clinique-rabat/app.log
 
-            # Start new instance in background
-            nohup java -jar /opt/ms-clinique-rabat/microservices/GestionClinique-0.0.1-SNAPSHOT.jar \
+            # Vérifie que le JAR existe
+            if [ ! -f "$JAR_PATH" ]; then
+              echo "ERREUR: Le fichier $JAR_PATH n'existe pas !"
+              exit 1
+            fi
+
+            # Stoppe l'ancien processus si existant
+            if pgrep -f GestionClinique-0.0.1-SNAPSHOT.jar > /dev/null; then
+              echo "Arrêt de l'ancien processus..."
+              pkill -f GestionClinique-0.0.1-SNAPSHOT.jar
+              sleep 3
+            fi
+
+            # Lancement du nouveau processus
+            echo "Démarrage de l'application..."
+            nohup java -jar "$JAR_PATH" \
               --spring.mail.host=$MAIL_HOST \
               --spring.datasource.username=$DB_USER \
               --spring.datasource.password=$DB_PASS \
               --spring.datasource.url=$DB_URL \
               --spring.sql.init.mode=true \
-              > /opt/ms-clinique-rabat/app.log 2>&1 &
+              > "$LOG_PATH" 2>&1 &
+
+            sleep 2
+
+            # Vérifie si le processus a démarré
+            if pgrep -f GestionClinique-0.0.1-SNAPSHOT.jar > /dev/null; then
+              echo "Application démarrée avec succès !"
+            else
+              echo "ERREUR: L'application n'a pas pu démarrer. Vérifier $LOG_PATH"
+              exit 1
+            fi
