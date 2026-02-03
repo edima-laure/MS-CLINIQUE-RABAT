@@ -38,14 +38,10 @@ jobs:
           distribution: temurin
           java-version: 21
 
-      - name: Make mvnw executable
-        working-directory: springBoot
-        run: chmod +x mvnw
-
       - name: Build Spring Boot project
         working-directory: springBoot
         run: |
-          ./mvnw clean package -DskipTests
+          mvn clean package -DskipTests
           ls -lh target
 
       - name: Copy JAR to server
@@ -60,11 +56,11 @@ jobs:
           overwrite: true
 
   run-project:
-    name: Create folder on server
+    name: Run Spring Boot application
     runs-on: ubuntu-latest
     needs: build-project
     steps:
-      - name: Create remote directory via SSH
+      - name: Run JAR on server
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.SERVER_HOST }}
@@ -72,6 +68,5 @@ jobs:
           username: ${{ secrets.SERVER_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            ln -sf /opt/ms-clinique-rabat/microservices/GestionClinique-0.0.1-SNAPSHOT.jar /etc/init.d/ms-clinique-rabat
-             /etc/init.d/ms-clinique-rabat stop
-             /etc/init.d/ms-clinique-rabat start
+            pkill -f GestionClinique-0.0.1-SNAPSHOT.jar || true
+            nohup java -jar /opt/ms-clinique-rabat/microservices/GestionClinique-0.0.1-SNAPSHOT.jar > /opt/ms-clinique-rabat/app.log 2>&1 &
