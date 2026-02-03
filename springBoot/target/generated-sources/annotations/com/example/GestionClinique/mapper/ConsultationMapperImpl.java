@@ -13,8 +13,8 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2026-02-02T21:48:41+0100",
-    comments = "version: 1.5.5.Final, compiler: Eclipse JDT (IDE) 3.45.0.v20260128-0750, environment: Java 21.0.9 (Eclipse Adoptium)"
+    date = "2026-02-03T11:30:57+0100",
+    comments = "version: 1.5.5.Final, compiler: javac, environment: Java 24.0.1 (Oracle Corporation)"
 )
 @Component
 public class ConsultationMapperImpl implements ConsultationMapper {
@@ -31,13 +31,13 @@ public class ConsultationMapperImpl implements ConsultationMapper {
         Consultation consultation = new Consultation();
 
         consultation.setPrescriptions( prescriptionRequestDtoListToPrescriptionList( dto.getPrescriptions() ) );
-        consultation.setCompteRendu( dto.getCompteRendu() );
-        consultation.setDiagnostic( dto.getDiagnostic() );
-        consultation.setMotifs( dto.getMotifs() );
         consultation.setPoids( dto.getPoids() );
         consultation.setTaille( dto.getTaille() );
         consultation.setTemperature( dto.getTemperature() );
         consultation.setTensionArterielle( dto.getTensionArterielle() );
+        consultation.setMotifs( dto.getMotifs() );
+        consultation.setCompteRendu( dto.getCompteRendu() );
+        consultation.setDiagnostic( dto.getDiagnostic() );
 
         return consultation;
     }
@@ -51,16 +51,16 @@ public class ConsultationMapperImpl implements ConsultationMapper {
         ConsultationResponseDto consultationResponseDto = new ConsultationResponseDto();
 
         consultationResponseDto.setPrescriptions( prescriptionMapper.toDtoList( entity.getPrescriptions() ) );
-        consultationResponseDto.setCreationDate( entity.getCreationDate() );
         consultationResponseDto.setId( entity.getId() );
+        consultationResponseDto.setCreationDate( entity.getCreationDate() );
         consultationResponseDto.setModificationDate( entity.getModificationDate() );
-        consultationResponseDto.setCompteRendu( entity.getCompteRendu() );
-        consultationResponseDto.setDiagnostic( entity.getDiagnostic() );
-        consultationResponseDto.setMotifs( entity.getMotifs() );
         consultationResponseDto.setPoids( entity.getPoids() );
         consultationResponseDto.setTaille( entity.getTaille() );
-        consultationResponseDto.setTemperature( entity.getTemperature() );
         consultationResponseDto.setTensionArterielle( entity.getTensionArterielle() );
+        consultationResponseDto.setTemperature( entity.getTemperature() );
+        consultationResponseDto.setMotifs( entity.getMotifs() );
+        consultationResponseDto.setDiagnostic( entity.getDiagnostic() );
+        consultationResponseDto.setCompteRendu( entity.getCompteRendu() );
 
         consultationResponseDto.setMedecinNomComplet( entity.getMedecin() != null ? entity.getMedecin().getNom() + " " + entity.getMedecin().getPrenom() : null );
         consultationResponseDto.setPatientNomComplet( entity.getDossierMedical() != null && entity.getDossierMedical().getPatient() != null ? entity.getDossierMedical().getPatient().getNom() + " " + entity.getDossierMedical().getPatient().getPrenom() : null );
@@ -102,15 +102,6 @@ public class ConsultationMapperImpl implements ConsultationMapper {
                 entity.setPrescriptions( list );
             }
         }
-        if ( dto.getCompteRendu() != null ) {
-            entity.setCompteRendu( dto.getCompteRendu() );
-        }
-        if ( dto.getDiagnostic() != null ) {
-            entity.setDiagnostic( dto.getDiagnostic() );
-        }
-        if ( dto.getMotifs() != null ) {
-            entity.setMotifs( dto.getMotifs() );
-        }
         if ( dto.getPoids() != null ) {
             entity.setPoids( dto.getPoids() );
         }
@@ -122,6 +113,15 @@ public class ConsultationMapperImpl implements ConsultationMapper {
         }
         if ( dto.getTensionArterielle() != null ) {
             entity.setTensionArterielle( dto.getTensionArterielle() );
+        }
+        if ( dto.getMotifs() != null ) {
+            entity.setMotifs( dto.getMotifs() );
+        }
+        if ( dto.getCompteRendu() != null ) {
+            entity.setCompteRendu( dto.getCompteRendu() );
+        }
+        if ( dto.getDiagnostic() != null ) {
+            entity.setDiagnostic( dto.getDiagnostic() );
         }
     }
 

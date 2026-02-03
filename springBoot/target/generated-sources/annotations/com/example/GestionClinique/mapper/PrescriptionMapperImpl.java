@@ -13,8 +13,8 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2026-02-02T21:48:42+0100",
-    comments = "version: 1.5.5.Final, compiler: Eclipse JDT (IDE) 3.45.0.v20260128-0750, environment: Java 21.0.9 (Eclipse Adoptium)"
+    date = "2026-02-03T11:30:57+0100",
+    comments = "version: 1.5.5.Final, compiler: javac, environment: Java 24.0.1 (Oracle Corporation)"
 )
 @Component
 public class PrescriptionMapperImpl implements PrescriptionMapper {
@@ -27,13 +27,13 @@ public class PrescriptionMapperImpl implements PrescriptionMapper {
 
         Prescription prescription = new Prescription();
 
-        prescription.setDureePrescription( dto.getDureePrescription() );
-        prescription.setInstructions( dto.getInstructions() );
+        prescription.setTypePrescription( dto.getTypePrescription() );
         prescription.setMedicaments( dto.getMedicaments() );
+        prescription.setInstructions( dto.getInstructions() );
+        prescription.setDureePrescription( dto.getDureePrescription() );
         if ( dto.getQuantite() != null ) {
             prescription.setQuantite( dto.getQuantite().intValue() );
         }
-        prescription.setTypePrescription( dto.getTypePrescription() );
 
         return prescription;
     }
@@ -49,16 +49,16 @@ public class PrescriptionMapperImpl implements PrescriptionMapper {
         prescriptionResponseDto.setMedecinId( entityMedecinId( entity ) );
         prescriptionResponseDto.setPatientId( entityPatientId( entity ) );
         prescriptionResponseDto.setConsultationId( entityConsultationId( entity ) );
-        prescriptionResponseDto.setCreationDate( entity.getCreationDate() );
         prescriptionResponseDto.setId( entity.getId() );
+        prescriptionResponseDto.setCreationDate( entity.getCreationDate() );
         prescriptionResponseDto.setModificationDate( entity.getModificationDate() );
-        prescriptionResponseDto.setDureePrescription( entity.getDureePrescription() );
-        prescriptionResponseDto.setInstructions( entity.getInstructions() );
+        prescriptionResponseDto.setTypePrescription( entity.getTypePrescription() );
         prescriptionResponseDto.setMedicaments( entity.getMedicaments() );
+        prescriptionResponseDto.setInstructions( entity.getInstructions() );
+        prescriptionResponseDto.setDureePrescription( entity.getDureePrescription() );
         if ( entity.getQuantite() != null ) {
             prescriptionResponseDto.setQuantite( entity.getQuantite().longValue() );
         }
-        prescriptionResponseDto.setTypePrescription( entity.getTypePrescription() );
 
         prescriptionResponseDto.setMedecinNomComplet( entity.getMedecin() != null ? entity.getMedecin().getNom() + " " + entity.getMedecin().getPrenom() : null );
         prescriptionResponseDto.setPatientNomComplet( entity.getPatient() != null ? entity.getPatient().getNom() + " " + entity.getPatient().getPrenom() : null );
@@ -87,20 +87,20 @@ public class PrescriptionMapperImpl implements PrescriptionMapper {
             return;
         }
 
-        if ( dto.getDureePrescription() != null ) {
-            entity.setDureePrescription( dto.getDureePrescription() );
-        }
-        if ( dto.getInstructions() != null ) {
-            entity.setInstructions( dto.getInstructions() );
+        if ( dto.getTypePrescription() != null ) {
+            entity.setTypePrescription( dto.getTypePrescription() );
         }
         if ( dto.getMedicaments() != null ) {
             entity.setMedicaments( dto.getMedicaments() );
         }
+        if ( dto.getInstructions() != null ) {
+            entity.setInstructions( dto.getInstructions() );
+        }
+        if ( dto.getDureePrescription() != null ) {
+            entity.setDureePrescription( dto.getDureePrescription() );
+        }
         if ( dto.getQuantite() != null ) {
             entity.setQuantite( dto.getQuantite().intValue() );
-        }
-        if ( dto.getTypePrescription() != null ) {
-            entity.setTypePrescription( dto.getTypePrescription() );
         }
     }
 

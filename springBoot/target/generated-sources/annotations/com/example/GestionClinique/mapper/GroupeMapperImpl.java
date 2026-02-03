@@ -11,8 +11,8 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2026-02-02T21:48:42+0100",
-    comments = "version: 1.5.5.Final, compiler: Eclipse JDT (IDE) 3.45.0.v20260128-0750, environment: Java 21.0.9 (Eclipse Adoptium)"
+    date = "2026-02-03T11:30:57+0100",
+    comments = "version: 1.5.5.Final, compiler: javac, environment: Java 24.0.1 (Oracle Corporation)"
 )
 @Component
 public class GroupeMapperImpl implements GroupeMapper {
@@ -28,8 +28,8 @@ public class GroupeMapperImpl implements GroupeMapper {
 
         Groupe groupe = new Groupe();
 
-        groupe.setDescription( dto.getDescription() );
         groupe.setNom( dto.getNom() );
+        groupe.setDescription( dto.getDescription() );
 
         return groupe;
     }
@@ -43,12 +43,12 @@ public class GroupeMapperImpl implements GroupeMapper {
         GroupeResponseDto groupeResponseDto = new GroupeResponseDto();
 
         groupeResponseDto.setCreateur( utilisateurMapper.toDto( entity.getCreateur() ) );
-        groupeResponseDto.setCreationDate( entity.getCreationDate() );
         groupeResponseDto.setId( entity.getId() );
+        groupeResponseDto.setCreationDate( entity.getCreationDate() );
         groupeResponseDto.setModificationDate( entity.getModificationDate() );
+        groupeResponseDto.setNom( entity.getNom() );
         groupeResponseDto.setDescription( entity.getDescription() );
         groupeResponseDto.setMembres( utilisateurMapper.toDtoList( entity.getMembres() ) );
-        groupeResponseDto.setNom( entity.getNom() );
 
         return groupeResponseDto;
     }

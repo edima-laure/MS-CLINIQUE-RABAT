@@ -13,8 +13,8 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2026-02-02T21:48:41+0100",
-    comments = "version: 1.5.5.Final, compiler: Eclipse JDT (IDE) 3.45.0.v20260128-0750, environment: Java 21.0.9 (Eclipse Adoptium)"
+    date = "2026-02-03T11:30:57+0100",
+    comments = "version: 1.5.5.Final, compiler: javac, environment: Java 24.0.1 (Oracle Corporation)"
 )
 @Component
 public class NotificationMapperImpl implements NotificationMapper {
@@ -30,13 +30,13 @@ public class NotificationMapperImpl implements NotificationMapper {
         notificationResponseDto.setUtilisateurId( notificationUtilisateurId( notification ) );
         notificationResponseDto.setMessageId( notificationMessageId( notification ) );
         notificationResponseDto.setRendezVousId( notificationRendezVousId( notification ) );
-        notificationResponseDto.setCreationDate( notification.getCreationDate() );
         notificationResponseDto.setId( notification.getId() );
+        notificationResponseDto.setCreationDate( notification.getCreationDate() );
         notificationResponseDto.setModificationDate( notification.getModificationDate() );
         notificationResponseDto.setContenu( notification.getContenu() );
-        notificationResponseDto.setDateCreation( notification.getDateCreation() );
-        notificationResponseDto.setLu( notification.isLu() );
         notificationResponseDto.setType( notification.getType() );
+        notificationResponseDto.setLu( notification.isLu() );
+        notificationResponseDto.setDateCreation( notification.getDateCreation() );
 
         return notificationResponseDto;
     }
@@ -49,8 +49,8 @@ public class NotificationMapperImpl implements NotificationMapper {
 
         Notification notification = new Notification();
 
-        notification.setContenu( dto.getContenu() );
         notification.setType( dto.getType() );
+        notification.setContenu( dto.getContenu() );
 
         return notification;
     }

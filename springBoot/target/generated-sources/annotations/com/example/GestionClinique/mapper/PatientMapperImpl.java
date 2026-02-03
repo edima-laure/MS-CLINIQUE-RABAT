@@ -11,8 +11,8 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2026-02-02T21:48:40+0100",
-    comments = "version: 1.5.5.Final, compiler: Eclipse JDT (IDE) 3.45.0.v20260128-0750, environment: Java 21.0.9 (Eclipse Adoptium)"
+    date = "2026-02-03T11:30:57+0100",
+    comments = "version: 1.5.5.Final, compiler: javac, environment: Java 24.0.1 (Oracle Corporation)"
 )
 @Component
 public class PatientMapperImpl implements PatientMapper {
@@ -48,17 +48,17 @@ public class PatientMapperImpl implements PatientMapper {
 
         PatientResponseDto patientResponseDto = new PatientResponseDto();
 
-        patientResponseDto.setCreationDate( patient.getCreationDate() );
         patientResponseDto.setId( patient.getId() );
+        patientResponseDto.setCreationDate( patient.getCreationDate() );
         patientResponseDto.setModificationDate( patient.getModificationDate() );
-        patientResponseDto.setAdresse( patient.getAdresse() );
-        patientResponseDto.setAge( patient.getAge() );
-        patientResponseDto.setDateNaissance( patient.getDateNaissance() );
-        patientResponseDto.setEmail( patient.getEmail() );
-        patientResponseDto.setGenre( patient.getGenre() );
         patientResponseDto.setNom( patient.getNom() );
         patientResponseDto.setPrenom( patient.getPrenom() );
+        patientResponseDto.setDateNaissance( patient.getDateNaissance() );
+        patientResponseDto.setAge( patient.getAge() );
+        patientResponseDto.setEmail( patient.getEmail() );
         patientResponseDto.setTelephone( patient.getTelephone() );
+        patientResponseDto.setAdresse( patient.getAdresse() );
+        patientResponseDto.setGenre( patient.getGenre() );
 
         return patientResponseDto;
     }
@@ -83,8 +83,11 @@ public class PatientMapperImpl implements PatientMapper {
             return;
         }
 
-        if ( patientRequestDto.getAdresse() != null ) {
-            patient.setAdresse( patientRequestDto.getAdresse() );
+        if ( patientRequestDto.getNom() != null ) {
+            patient.setNom( patientRequestDto.getNom() );
+        }
+        if ( patientRequestDto.getPrenom() != null ) {
+            patient.setPrenom( patientRequestDto.getPrenom() );
         }
         if ( patientRequestDto.getDateNaissance() != null ) {
             patient.setDateNaissance( patientRequestDto.getDateNaissance() );
@@ -92,17 +95,14 @@ public class PatientMapperImpl implements PatientMapper {
         if ( patientRequestDto.getEmail() != null ) {
             patient.setEmail( patientRequestDto.getEmail() );
         }
-        if ( patientRequestDto.getGenre() != null ) {
-            patient.setGenre( patientRequestDto.getGenre() );
-        }
-        if ( patientRequestDto.getNom() != null ) {
-            patient.setNom( patientRequestDto.getNom() );
-        }
-        if ( patientRequestDto.getPrenom() != null ) {
-            patient.setPrenom( patientRequestDto.getPrenom() );
-        }
         if ( patientRequestDto.getTelephone() != null ) {
             patient.setTelephone( patientRequestDto.getTelephone() );
+        }
+        if ( patientRequestDto.getAdresse() != null ) {
+            patient.setAdresse( patientRequestDto.getAdresse() );
+        }
+        if ( patientRequestDto.getGenre() != null ) {
+            patient.setGenre( patientRequestDto.getGenre() );
         }
     }
 }

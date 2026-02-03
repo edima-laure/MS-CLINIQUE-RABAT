@@ -11,8 +11,8 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2026-02-02T21:48:42+0100",
-    comments = "version: 1.5.5.Final, compiler: Eclipse JDT (IDE) 3.45.0.v20260128-0750, environment: Java 21.0.9 (Eclipse Adoptium)"
+    date = "2026-02-03T11:30:57+0100",
+    comments = "version: 1.5.5.Final, compiler: javac, environment: Java 24.0.1 (Oracle Corporation)"
 )
 @Component
 public class StatMapperImpl implements StatMapper {
@@ -25,14 +25,14 @@ public class StatMapperImpl implements StatMapper {
 
         StatDuJourResponseDto statDuJourResponseDto = new StatDuJourResponseDto();
 
-        statDuJourResponseDto.setCreationDate( entity.getCreationDate() );
         statDuJourResponseDto.setId( entity.getId() );
+        statDuJourResponseDto.setCreationDate( entity.getCreationDate() );
         statDuJourResponseDto.setModificationDate( entity.getModificationDate() );
         statDuJourResponseDto.setJour( entity.getJour() );
-        statDuJourResponseDto.setNbrConsultation( entity.getNbrConsultation() );
-        statDuJourResponseDto.setNbrPatientEnrg( entity.getNbrPatientEnrg() );
-        statDuJourResponseDto.setNbrRendezANNULE( entity.getNbrRendezANNULE() );
         statDuJourResponseDto.setNbrRendezVousCONFIRME( entity.getNbrRendezVousCONFIRME() );
+        statDuJourResponseDto.setNbrRendezANNULE( entity.getNbrRendezANNULE() );
+        statDuJourResponseDto.setNbrPatientEnrg( entity.getNbrPatientEnrg() );
+        statDuJourResponseDto.setNbrConsultation( entity.getNbrConsultation() );
         statDuJourResponseDto.setRevenu( entity.getRevenu() );
 
         return statDuJourResponseDto;
@@ -46,14 +46,14 @@ public class StatMapperImpl implements StatMapper {
 
         StatParMoisResponseDto statParMoisResponseDto = new StatParMoisResponseDto();
 
-        statParMoisResponseDto.setCreationDate( entity.getCreationDate() );
         statParMoisResponseDto.setId( entity.getId() );
+        statParMoisResponseDto.setCreationDate( entity.getCreationDate() );
         statParMoisResponseDto.setModificationDate( entity.getModificationDate() );
         statParMoisResponseDto.setMois( entity.getMois() );
-        statParMoisResponseDto.setNbrConsultation( entity.getNbrConsultation() );
-        statParMoisResponseDto.setNbrPatientEnrg( entity.getNbrPatientEnrg() );
-        statParMoisResponseDto.setNbrRendezANNULE( entity.getNbrRendezANNULE() );
         statParMoisResponseDto.setNbrRendezVousCONFIRME( entity.getNbrRendezVousCONFIRME() );
+        statParMoisResponseDto.setNbrRendezANNULE( entity.getNbrRendezANNULE() );
+        statParMoisResponseDto.setNbrPatientEnrg( entity.getNbrPatientEnrg() );
+        statParMoisResponseDto.setNbrConsultation( entity.getNbrConsultation() );
         statParMoisResponseDto.setRevenu( entity.getRevenu() );
 
         return statParMoisResponseDto;
@@ -68,13 +68,13 @@ public class StatMapperImpl implements StatMapper {
         StatsSurLanneeResponseDto statsSurLanneeResponseDto = new StatsSurLanneeResponseDto();
 
         statsSurLanneeResponseDto.setAnnee( entity.getAnnee() );
-        statsSurLanneeResponseDto.setCreationDate( entity.getCreationDate() );
         statsSurLanneeResponseDto.setId( entity.getId() );
+        statsSurLanneeResponseDto.setCreationDate( entity.getCreationDate() );
         statsSurLanneeResponseDto.setModificationDate( entity.getModificationDate() );
-        statsSurLanneeResponseDto.setNbrConsultation( entity.getNbrConsultation() );
-        statsSurLanneeResponseDto.setNbrPatientEnrg( entity.getNbrPatientEnrg() );
-        statsSurLanneeResponseDto.setNbrRendezANNULE( entity.getNbrRendezANNULE() );
         statsSurLanneeResponseDto.setNbrRendezVousCONFIRME( entity.getNbrRendezVousCONFIRME() );
+        statsSurLanneeResponseDto.setNbrRendezANNULE( entity.getNbrRendezANNULE() );
+        statsSurLanneeResponseDto.setNbrPatientEnrg( entity.getNbrPatientEnrg() );
+        statsSurLanneeResponseDto.setNbrConsultation( entity.getNbrConsultation() );
         statsSurLanneeResponseDto.setRevenu( entity.getRevenu() );
 
         return statsSurLanneeResponseDto;

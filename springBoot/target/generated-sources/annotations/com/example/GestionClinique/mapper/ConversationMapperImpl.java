@@ -13,8 +13,8 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2026-02-02T21:48:42+0100",
-    comments = "version: 1.5.5.Final, compiler: Eclipse JDT (IDE) 3.45.0.v20260128-0750, environment: Java 21.0.9 (Eclipse Adoptium)"
+    date = "2026-02-03T11:30:57+0100",
+    comments = "version: 1.5.5.Final, compiler: javac, environment: Java 24.0.1 (Oracle Corporation)"
 )
 @Component
 public class ConversationMapperImpl extends ConversationMapper {
@@ -31,8 +31,8 @@ public class ConversationMapperImpl extends ConversationMapper {
         Conversation conversation = new Conversation();
 
         conversation.setParticipants( mapParticipantIdsToParticipants( dto.getParticipantIds() ) );
-        conversation.setTitre( dto.getTitre() );
         conversation.setTypeConversation( dto.getTypeConversation() );
+        conversation.setTitre( dto.getTitre() );
 
         return conversation;
     }
@@ -48,11 +48,11 @@ public class ConversationMapperImpl extends ConversationMapper {
         conversationResponseDto.setTypeConversation( entity.getTypeConversation() );
         conversationResponseDto.setParticipants( conversationParticipantListToUtilisateurResponseDtoList( entity.getParticipants() ) );
         conversationResponseDto.setLastMessageAt( entity.getLastMessageAt() );
-        conversationResponseDto.setCreationDate( entity.getCreationDate() );
         conversationResponseDto.setId( entity.getId() );
+        conversationResponseDto.setCreationDate( entity.getCreationDate() );
         conversationResponseDto.setModificationDate( entity.getModificationDate() );
-        conversationResponseDto.setGroupe( groupeMapper.toDto( entity.getGroupe() ) );
         conversationResponseDto.setTitre( entity.getTitre() );
+        conversationResponseDto.setGroupe( groupeMapper.toDto( entity.getGroupe() ) );
 
         return conversationResponseDto;
     }

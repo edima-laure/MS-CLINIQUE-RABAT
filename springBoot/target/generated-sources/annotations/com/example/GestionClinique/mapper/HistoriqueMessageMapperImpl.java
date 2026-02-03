@@ -8,8 +8,8 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2026-02-02T21:48:41+0100",
-    comments = "version: 1.5.5.Final, compiler: Eclipse JDT (IDE) 3.45.0.v20260128-0750, environment: Java 21.0.9 (Eclipse Adoptium)"
+    date = "2026-02-03T11:30:57+0100",
+    comments = "version: 1.5.5.Final, compiler: javac, environment: Java 24.0.1 (Oracle Corporation)"
 )
 @Component
 public class HistoriqueMessageMapperImpl implements HistoriqueMessageMapper {
@@ -25,12 +25,12 @@ public class HistoriqueMessageMapperImpl implements HistoriqueMessageMapper {
 
         HistoriqueMessageResponseDto historiqueMessageResponseDto = new HistoriqueMessageResponseDto();
 
-        historiqueMessageResponseDto.setCreationDate( entity.getCreationDate() );
         historiqueMessageResponseDto.setId( entity.getId() );
+        historiqueMessageResponseDto.setCreationDate( entity.getCreationDate() );
         historiqueMessageResponseDto.setModificationDate( entity.getModificationDate() );
         historiqueMessageResponseDto.setActeur( utilisateurMapper.toDto( entity.getActeur() ) );
-        historiqueMessageResponseDto.setNewContent( entity.getNewContent() );
         historiqueMessageResponseDto.setPreviousContent( entity.getPreviousContent() );
+        historiqueMessageResponseDto.setNewContent( entity.getNewContent() );
 
         historiqueMessageResponseDto.setAction( entity.getAction().name() );
 

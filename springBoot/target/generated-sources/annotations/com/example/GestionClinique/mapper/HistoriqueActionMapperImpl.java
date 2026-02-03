@@ -11,8 +11,8 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2026-02-02T21:48:42+0100",
-    comments = "version: 1.5.5.Final, compiler: Eclipse JDT (IDE) 3.45.0.v20260128-0750, environment: Java 21.0.9 (Eclipse Adoptium)"
+    date = "2026-02-03T11:30:57+0100",
+    comments = "version: 1.5.5.Final, compiler: javac, environment: Java 24.0.1 (Oracle Corporation)"
 )
 @Component
 public class HistoriqueActionMapperImpl implements HistoriqueActionMapper {
@@ -28,8 +28,8 @@ public class HistoriqueActionMapperImpl implements HistoriqueActionMapper {
 
         HistoriqueAction historiqueAction = new HistoriqueAction();
 
-        historiqueAction.setAction( dto.getAction() );
         historiqueAction.setDate( dto.getDate() );
+        historiqueAction.setAction( dto.getAction() );
 
         return historiqueAction;
     }
@@ -43,11 +43,11 @@ public class HistoriqueActionMapperImpl implements HistoriqueActionMapper {
         HistoriqueActionResponseDto historiqueActionResponseDto = new HistoriqueActionResponseDto();
 
         historiqueActionResponseDto.setUtilisateur( utilisateurMapper.toDto( entity.getUtilisateur() ) );
-        historiqueActionResponseDto.setCreationDate( entity.getCreationDate() );
         historiqueActionResponseDto.setId( entity.getId() );
+        historiqueActionResponseDto.setCreationDate( entity.getCreationDate() );
         historiqueActionResponseDto.setModificationDate( entity.getModificationDate() );
-        historiqueActionResponseDto.setAction( entity.getAction() );
         historiqueActionResponseDto.setDate( entity.getDate() );
+        historiqueActionResponseDto.setAction( entity.getAction() );
 
         return historiqueActionResponseDto;
     }
@@ -72,11 +72,11 @@ public class HistoriqueActionMapperImpl implements HistoriqueActionMapper {
             return;
         }
 
-        if ( dto.getAction() != null ) {
-            entity.setAction( dto.getAction() );
-        }
         if ( dto.getDate() != null ) {
             entity.setDate( dto.getDate() );
+        }
+        if ( dto.getAction() != null ) {
+            entity.setAction( dto.getAction() );
         }
     }
 }

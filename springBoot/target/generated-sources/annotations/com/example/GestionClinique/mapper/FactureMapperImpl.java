@@ -17,8 +17,8 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2026-02-02T21:48:42+0100",
-    comments = "version: 1.5.5.Final, compiler: Eclipse JDT (IDE) 3.45.0.v20260128-0750, environment: Java 21.0.9 (Eclipse Adoptium)"
+    date = "2026-02-03T11:30:57+0100",
+    comments = "version: 1.5.5.Final, compiler: javac, environment: Java 24.0.1 (Oracle Corporation)"
 )
 @Component
 public class FactureMapperImpl implements FactureMapper {
@@ -42,10 +42,10 @@ public class FactureMapperImpl implements FactureMapper {
 
         Facture facture = new Facture();
 
-        facture.setDateEmission( xmlGregorianCalendarToLocalDateTime( localDateToXmlGregorianCalendar( dto.getDateEmission() ) ) );
-        facture.setModePaiement( dto.getModePaiement() );
         facture.setMontant( dto.getMontant() );
+        facture.setDateEmission( xmlGregorianCalendarToLocalDateTime( localDateToXmlGregorianCalendar( dto.getDateEmission() ) ) );
         facture.setStatutPaiement( dto.getStatutPaiement() );
+        facture.setModePaiement( dto.getModePaiement() );
 
         return facture;
     }
@@ -58,13 +58,13 @@ public class FactureMapperImpl implements FactureMapper {
 
         FactureResponseDto factureResponseDto = new FactureResponseDto();
 
-        factureResponseDto.setCreationDate( entity.getCreationDate() );
         factureResponseDto.setId( entity.getId() );
+        factureResponseDto.setCreationDate( entity.getCreationDate() );
         factureResponseDto.setModificationDate( entity.getModificationDate() );
-        factureResponseDto.setDateEmission( entity.getDateEmission() );
-        factureResponseDto.setModePaiement( entity.getModePaiement() );
         factureResponseDto.setMontant( entity.getMontant() );
+        factureResponseDto.setDateEmission( entity.getDateEmission() );
         factureResponseDto.setStatutPaiement( entity.getStatutPaiement() );
+        factureResponseDto.setModePaiement( entity.getModePaiement() );
 
         factureResponseDto.setPatientNomComplet( entity.getPatient() != null ? entity.getPatient().getNom() + " " + entity.getPatient().getPrenom() : null );
         factureResponseDto.setServiceMedicalNom( getServiceMedicalName(entity) );
@@ -92,17 +92,17 @@ public class FactureMapperImpl implements FactureMapper {
             return;
         }
 
-        if ( dto.getDateEmission() != null ) {
-            entity.setDateEmission( xmlGregorianCalendarToLocalDateTime( localDateToXmlGregorianCalendar( dto.getDateEmission() ) ) );
-        }
-        if ( dto.getModePaiement() != null ) {
-            entity.setModePaiement( dto.getModePaiement() );
-        }
         if ( dto.getMontant() != null ) {
             entity.setMontant( dto.getMontant() );
         }
+        if ( dto.getDateEmission() != null ) {
+            entity.setDateEmission( xmlGregorianCalendarToLocalDateTime( localDateToXmlGregorianCalendar( dto.getDateEmission() ) ) );
+        }
         if ( dto.getStatutPaiement() != null ) {
             entity.setStatutPaiement( dto.getStatutPaiement() );
+        }
+        if ( dto.getModePaiement() != null ) {
+            entity.setModePaiement( dto.getModePaiement() );
         }
     }
 
