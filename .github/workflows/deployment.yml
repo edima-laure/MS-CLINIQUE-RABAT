@@ -24,10 +24,9 @@ jobs:
             mkdir -p /opt/ms-clinique-rabat/microservices
 
   build-project:
-    name: Build & deploy Spring Boot application
+    name: Build Spring Boot application
     runs-on: ubuntu-latest
     needs: create-folder
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
