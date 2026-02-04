@@ -13,8 +13,8 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2026-02-03T11:30:57+0100",
-    comments = "version: 1.5.5.Final, compiler: javac, environment: Java 24.0.1 (Oracle Corporation)"
+    date = "2026-02-04T17:57:16+0100",
+    comments = "version: 1.5.5.Final, compiler: Eclipse JDT (IDE) 3.45.0.v20260128-0750, environment: Java 21.0.9 (Eclipse Adoptium)"
 )
 @Component
 public class RendezVousMapperImpl extends RendezVousMapper {
@@ -50,13 +50,13 @@ public class RendezVousMapperImpl extends RendezVousMapper {
         rendezVousResponseDto.setSalleId( entitySalleId( entity ) );
         rendezVousResponseDto.setServiceMedical( entity.getServiceMedical() );
         rendezVousResponseDto.setNomSalle( entitySalleNumeroSalle( entity ) );
-        rendezVousResponseDto.setId( entity.getId() );
         rendezVousResponseDto.setCreationDate( entity.getCreationDate() );
+        rendezVousResponseDto.setId( entity.getId() );
         rendezVousResponseDto.setModificationDate( entity.getModificationDate() );
-        rendezVousResponseDto.setJour( entity.getJour() );
         rendezVousResponseDto.setHeure( entity.getHeure() );
-        rendezVousResponseDto.setStatut( entity.getStatut() );
+        rendezVousResponseDto.setJour( entity.getJour() );
         rendezVousResponseDto.setNotes( entity.getNotes() );
+        rendezVousResponseDto.setStatut( entity.getStatut() );
 
         rendezVousResponseDto.setPatientNomComplet( entity.getPatient() != null ? entity.getPatient().getPrenom() + " " + entity.getPatient().getNom() : null );
         rendezVousResponseDto.setMedecinNomComplet( entity.getMedecin() != null ? entity.getMedecin().getPrenom() + " " + entity.getMedecin().getNom() : null );

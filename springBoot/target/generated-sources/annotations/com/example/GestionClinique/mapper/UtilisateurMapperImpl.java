@@ -11,8 +11,8 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2026-02-03T11:30:57+0100",
-    comments = "version: 1.5.5.Final, compiler: javac, environment: Java 24.0.1 (Oracle Corporation)"
+    date = "2026-02-04T17:57:17+0100",
+    comments = "version: 1.5.5.Final, compiler: Eclipse JDT (IDE) 3.45.0.v20260128-0750, environment: Java 21.0.9 (Eclipse Adoptium)"
 )
 @Component
 public class UtilisateurMapperImpl implements UtilisateurMapper {
@@ -29,15 +29,15 @@ public class UtilisateurMapperImpl implements UtilisateurMapper {
         Utilisateur utilisateur = new Utilisateur();
 
         utilisateur.setServiceMedical( dto.getServiceMedicalName() );
-        utilisateur.setNom( dto.getNom() );
-        utilisateur.setPrenom( dto.getPrenom() );
+        utilisateur.setAdresse( dto.getAdresse() );
         utilisateur.setDateNaissance( dto.getDateNaissance() );
         utilisateur.setEmail( dto.getEmail() );
-        utilisateur.setTelephone( dto.getTelephone() );
-        utilisateur.setAdresse( dto.getAdresse() );
         utilisateur.setGenre( dto.getGenre() );
-        utilisateur.setPassword( dto.getPassword() );
+        utilisateur.setNom( dto.getNom() );
+        utilisateur.setPrenom( dto.getPrenom() );
+        utilisateur.setTelephone( dto.getTelephone() );
         utilisateur.setActif( dto.getActif() );
+        utilisateur.setPassword( dto.getPassword() );
         utilisateur.setRole( roleMapper.toEntity( dto.getRole() ) );
 
         return utilisateur;
@@ -56,18 +56,18 @@ public class UtilisateurMapperImpl implements UtilisateurMapper {
         utilisateurResponseDto.setStatusConnect( utilisateur.getStatusConnect() );
         utilisateurResponseDto.setServiceMedicalName( utilisateur.getServiceMedical() );
         utilisateurResponseDto.setRole( roleMapper.toDto( utilisateur.getRole() ) );
-        utilisateurResponseDto.setId( utilisateur.getId() );
         utilisateurResponseDto.setCreationDate( utilisateur.getCreationDate() );
+        utilisateurResponseDto.setId( utilisateur.getId() );
         utilisateurResponseDto.setModificationDate( utilisateur.getModificationDate() );
+        utilisateurResponseDto.setAdresse( utilisateur.getAdresse() );
+        utilisateurResponseDto.setAge( utilisateur.getAge() );
+        utilisateurResponseDto.setDateNaissance( utilisateur.getDateNaissance() );
+        utilisateurResponseDto.setGenre( utilisateur.getGenre() );
         utilisateurResponseDto.setNom( utilisateur.getNom() );
         utilisateurResponseDto.setPrenom( utilisateur.getPrenom() );
-        utilisateurResponseDto.setDateNaissance( utilisateur.getDateNaissance() );
-        utilisateurResponseDto.setAge( utilisateur.getAge() );
         utilisateurResponseDto.setTelephone( utilisateur.getTelephone() );
-        utilisateurResponseDto.setAdresse( utilisateur.getAdresse() );
-        utilisateurResponseDto.setGenre( utilisateur.getGenre() );
-        utilisateurResponseDto.setEmail( utilisateur.getEmail() );
         utilisateurResponseDto.setActif( utilisateur.getActif() );
+        utilisateurResponseDto.setEmail( utilisateur.getEmail() );
         utilisateurResponseDto.setPhotoProfil( utilisateur.getPhotoProfil() );
 
         return utilisateurResponseDto;
@@ -99,11 +99,8 @@ public class UtilisateurMapperImpl implements UtilisateurMapper {
         if ( dto.getServiceMedicalName() != null ) {
             utilisateur.setServiceMedical( dto.getServiceMedicalName() );
         }
-        if ( dto.getNom() != null ) {
-            utilisateur.setNom( dto.getNom() );
-        }
-        if ( dto.getPrenom() != null ) {
-            utilisateur.setPrenom( dto.getPrenom() );
+        if ( dto.getAdresse() != null ) {
+            utilisateur.setAdresse( dto.getAdresse() );
         }
         if ( dto.getDateNaissance() != null ) {
             utilisateur.setDateNaissance( dto.getDateNaissance() );
@@ -111,14 +108,17 @@ public class UtilisateurMapperImpl implements UtilisateurMapper {
         if ( dto.getEmail() != null ) {
             utilisateur.setEmail( dto.getEmail() );
         }
-        if ( dto.getTelephone() != null ) {
-            utilisateur.setTelephone( dto.getTelephone() );
-        }
-        if ( dto.getAdresse() != null ) {
-            utilisateur.setAdresse( dto.getAdresse() );
-        }
         if ( dto.getGenre() != null ) {
             utilisateur.setGenre( dto.getGenre() );
+        }
+        if ( dto.getNom() != null ) {
+            utilisateur.setNom( dto.getNom() );
+        }
+        if ( dto.getPrenom() != null ) {
+            utilisateur.setPrenom( dto.getPrenom() );
+        }
+        if ( dto.getTelephone() != null ) {
+            utilisateur.setTelephone( dto.getTelephone() );
         }
         if ( dto.getActif() != null ) {
             utilisateur.setActif( dto.getActif() );

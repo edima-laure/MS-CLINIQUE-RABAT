@@ -16,8 +16,8 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2026-02-03T11:30:56+0100",
-    comments = "version: 1.5.5.Final, compiler: javac, environment: Java 24.0.1 (Oracle Corporation)"
+    date = "2026-02-04T17:57:16+0100",
+    comments = "version: 1.5.5.Final, compiler: Eclipse JDT (IDE) 3.45.0.v20260128-0750, environment: Java 21.0.9 (Eclipse Adoptium)"
 )
 @Component
 public class DossierMedicalMapperImpl implements DossierMedicalMapper {
@@ -30,10 +30,10 @@ public class DossierMedicalMapperImpl implements DossierMedicalMapper {
 
         DossierMedical dossierMedical = new DossierMedical();
 
-        dossierMedical.setGroupeSanguin( dto.getGroupeSanguin() );
-        dossierMedical.setAntecedentsMedicaux( dto.getAntecedentsMedicaux() );
         dossierMedical.setAllergies( dto.getAllergies() );
+        dossierMedical.setAntecedentsMedicaux( dto.getAntecedentsMedicaux() );
         dossierMedical.setDernierTraitement( dto.getDernierTraitement() );
+        dossierMedical.setGroupeSanguin( dto.getGroupeSanguin() );
         dossierMedical.setObservations( dto.getObservations() );
 
         return dossierMedical;
@@ -48,15 +48,15 @@ public class DossierMedicalMapperImpl implements DossierMedicalMapper {
         DossierMedicalResponseDto dossierMedicalResponseDto = new DossierMedicalResponseDto();
 
         dossierMedicalResponseDto.setPatient( patientToPatientResponseDto( entity.getPatient() ) );
-        dossierMedicalResponseDto.setId( entity.getId() );
         dossierMedicalResponseDto.setCreationDate( entity.getCreationDate() );
+        dossierMedicalResponseDto.setId( entity.getId() );
         dossierMedicalResponseDto.setModificationDate( entity.getModificationDate() );
-        dossierMedicalResponseDto.setGroupeSanguin( entity.getGroupeSanguin() );
-        dossierMedicalResponseDto.setAntecedentsMedicaux( entity.getAntecedentsMedicaux() );
         dossierMedicalResponseDto.setAllergies( entity.getAllergies() );
-        dossierMedicalResponseDto.setDernierTraitement( entity.getDernierTraitement() );
-        dossierMedicalResponseDto.setObservations( entity.getObservations() );
+        dossierMedicalResponseDto.setAntecedentsMedicaux( entity.getAntecedentsMedicaux() );
         dossierMedicalResponseDto.setConsultations( consultationListToConsultationResponseDtoList( entity.getConsultations() ) );
+        dossierMedicalResponseDto.setDernierTraitement( entity.getDernierTraitement() );
+        dossierMedicalResponseDto.setGroupeSanguin( entity.getGroupeSanguin() );
+        dossierMedicalResponseDto.setObservations( entity.getObservations() );
 
         return dossierMedicalResponseDto;
     }
@@ -67,17 +67,17 @@ public class DossierMedicalMapperImpl implements DossierMedicalMapper {
             return;
         }
 
-        if ( dto.getGroupeSanguin() != null ) {
-            entity.setGroupeSanguin( dto.getGroupeSanguin() );
+        if ( dto.getAllergies() != null ) {
+            entity.setAllergies( dto.getAllergies() );
         }
         if ( dto.getAntecedentsMedicaux() != null ) {
             entity.setAntecedentsMedicaux( dto.getAntecedentsMedicaux() );
         }
-        if ( dto.getAllergies() != null ) {
-            entity.setAllergies( dto.getAllergies() );
-        }
         if ( dto.getDernierTraitement() != null ) {
             entity.setDernierTraitement( dto.getDernierTraitement() );
+        }
+        if ( dto.getGroupeSanguin() != null ) {
+            entity.setGroupeSanguin( dto.getGroupeSanguin() );
         }
         if ( dto.getObservations() != null ) {
             entity.setObservations( dto.getObservations() );
@@ -105,17 +105,17 @@ public class DossierMedicalMapperImpl implements DossierMedicalMapper {
 
         PatientResponseDto patientResponseDto = new PatientResponseDto();
 
-        patientResponseDto.setId( patient.getId() );
         patientResponseDto.setCreationDate( patient.getCreationDate() );
+        patientResponseDto.setId( patient.getId() );
         patientResponseDto.setModificationDate( patient.getModificationDate() );
+        patientResponseDto.setAdresse( patient.getAdresse() );
+        patientResponseDto.setAge( patient.getAge() );
+        patientResponseDto.setDateNaissance( patient.getDateNaissance() );
+        patientResponseDto.setEmail( patient.getEmail() );
+        patientResponseDto.setGenre( patient.getGenre() );
         patientResponseDto.setNom( patient.getNom() );
         patientResponseDto.setPrenom( patient.getPrenom() );
-        patientResponseDto.setDateNaissance( patient.getDateNaissance() );
-        patientResponseDto.setAge( patient.getAge() );
-        patientResponseDto.setEmail( patient.getEmail() );
         patientResponseDto.setTelephone( patient.getTelephone() );
-        patientResponseDto.setAdresse( patient.getAdresse() );
-        patientResponseDto.setGenre( patient.getGenre() );
 
         return patientResponseDto;
     }
@@ -127,16 +127,16 @@ public class DossierMedicalMapperImpl implements DossierMedicalMapper {
 
         PrescriptionResponseDto prescriptionResponseDto = new PrescriptionResponseDto();
 
-        prescriptionResponseDto.setId( prescription.getId() );
         prescriptionResponseDto.setCreationDate( prescription.getCreationDate() );
+        prescriptionResponseDto.setId( prescription.getId() );
         prescriptionResponseDto.setModificationDate( prescription.getModificationDate() );
-        prescriptionResponseDto.setTypePrescription( prescription.getTypePrescription() );
-        prescriptionResponseDto.setMedicaments( prescription.getMedicaments() );
-        prescriptionResponseDto.setInstructions( prescription.getInstructions() );
         prescriptionResponseDto.setDureePrescription( prescription.getDureePrescription() );
+        prescriptionResponseDto.setInstructions( prescription.getInstructions() );
+        prescriptionResponseDto.setMedicaments( prescription.getMedicaments() );
         if ( prescription.getQuantite() != null ) {
             prescriptionResponseDto.setQuantite( prescription.getQuantite().longValue() );
         }
+        prescriptionResponseDto.setTypePrescription( prescription.getTypePrescription() );
 
         return prescriptionResponseDto;
     }
@@ -161,17 +161,17 @@ public class DossierMedicalMapperImpl implements DossierMedicalMapper {
 
         ConsultationResponseDto consultationResponseDto = new ConsultationResponseDto();
 
-        consultationResponseDto.setId( consultation.getId() );
         consultationResponseDto.setCreationDate( consultation.getCreationDate() );
+        consultationResponseDto.setId( consultation.getId() );
         consultationResponseDto.setModificationDate( consultation.getModificationDate() );
-        consultationResponseDto.setPoids( consultation.getPoids() );
-        consultationResponseDto.setTaille( consultation.getTaille() );
-        consultationResponseDto.setTensionArterielle( consultation.getTensionArterielle() );
-        consultationResponseDto.setTemperature( consultation.getTemperature() );
-        consultationResponseDto.setMotifs( consultation.getMotifs() );
-        consultationResponseDto.setDiagnostic( consultation.getDiagnostic() );
         consultationResponseDto.setCompteRendu( consultation.getCompteRendu() );
+        consultationResponseDto.setDiagnostic( consultation.getDiagnostic() );
+        consultationResponseDto.setMotifs( consultation.getMotifs() );
+        consultationResponseDto.setPoids( consultation.getPoids() );
         consultationResponseDto.setPrescriptions( prescriptionListToPrescriptionResponseDtoList( consultation.getPrescriptions() ) );
+        consultationResponseDto.setTaille( consultation.getTaille() );
+        consultationResponseDto.setTemperature( consultation.getTemperature() );
+        consultationResponseDto.setTensionArterielle( consultation.getTensionArterielle() );
 
         return consultationResponseDto;
     }
