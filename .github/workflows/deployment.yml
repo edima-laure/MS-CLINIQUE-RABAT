@@ -77,7 +77,7 @@ jobs:
             DB_PASS=${{ secrets.DATABASE_USERPASSWORD }}
             DB_URL=${{ secrets.DATABASE_URL }}
           script: |
-            JAR_PATH=/opt/ms-clinique-rabat/microservices/GestionClinique-0.0.1-SNAPSHOT.jar
+            JAR_PATH=/opt/ms-clinique-rabat/microservices/springBoot/target/GestionClinique-0.0.1-SNAPSHOT.jar
             LOG_PATH=/opt/ms-clinique-rabat/app.log
 
             # Vérifie que le JAR existe
