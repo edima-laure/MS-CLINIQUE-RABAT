@@ -17,16 +17,17 @@ jobs:
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.SERVER_HOST }}
-          port: ${{ secrets.SERVER_PORT }}
+          port: ${{ secrets.PORT }}
           username: ${{ secrets.SERVER_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             mkdir -p /opt/ms-clinique-rabat/microservices
 
   build-project:
-    name: Build Spring Boot application
+    name: Build & deploy Spring Boot application
     runs-on: ubuntu-latest
     needs: create-folder
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -51,7 +52,7 @@ jobs:
         uses: appleboy/scp-action@v0.1.7
         with:
           host: ${{ secrets.SERVER_HOST }}
-          port: ${{ secrets.SERVER_PORT }}
+          port: ${{ secrets.PORT }}
           username: ${{ secrets.SERVER_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           source: springBoot/target/GestionClinique-0.0.1-SNAPSHOT.jar
@@ -63,62 +64,43 @@ jobs:
     runs-on: ubuntu-latest
     needs: build-project
     steps:
-      - name: Run Spring Boot application via SSH
-        uses: appleboy/ssh-action@v1.0.3
-        with:
-          host: ${{ secrets.SERVER_HOST }}
-          port: ${{ secrets.SERVER_PORT }}
-          username: ${{ secrets.SERVER_USERNAME }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          envs: |
-            DATABASE_USERNAME=${{ secrets.DATABASE_USERNAME }}
-            DATABASE_USERPASSWORD=${{ secrets.DATABASE_USERPASSWORD }}
-            DATABASE_URL=${{ secrets.DATABASE_URL }}
-          script: |
-            set -e
+      - name: Setup SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
 
-            JAR_PATH=/opt/ms-clinique-rabat/microservices/GestionClinique-0.0.1-SNAPSHOT.jar
-            LOG_DIR=/opt/ms-clinique-rabat
-            LOG_PATH=$LOG_DIR/app.log
-
-            mkdir -p "$LOG_DIR"
-            touch "$LOG_PATH"
-
-            if [ ! -f "$JAR_PATH" ]; then
-              echo "❌ ERREUR: JAR introuvable"
-              exit 1
-            fi
-
-            echo "🔍 Recherche d'anciens processus Java..."
-
-            OLD_PIDS=$(pgrep -f "$JAR_PATH" || true)
-
-            if [ -n "$OLD_PIDS" ]; then
-              echo "🛑 Arrêt des anciens processus : $OLD_PIDS"
-              for PID in $OLD_PIDS; do
-                kill "$PID" || true
-              done
-              sleep 3
-            fi
-
-            echo "🚀 Démarrage de l'application Spring Boot..."
-
-            setsid nohup java -jar "$JAR_PATH" \
-              --spring.datasource.username="$DATABASE_USERNAME" \
-              --spring.datasource.password="$DATABASE_USERPASSWORD" \
-              --spring.datasource.url="$DATABASE_URL" \
-              --spring.sql.init.mode=always \
-              > "$LOG_PATH" 2>&1 < /dev/null &
-
-            sleep 5
-
-            NEW_PID=$(pgrep -f "$JAR_PATH" || true)
-
-            if [ -n "$NEW_PID" ]; then
-              echo "✅ Application démarrée avec succès (PID=$NEW_PID)"
-            else
-              echo "❌ Échec du démarrage"
-              echo "📄 Logs :"
-              cat "$LOG_PATH"
-              exit 1
-            fi
+      - name: Run application via SSH
+        run: |
+          ssh -i ~/.ssh/id_ed25519 \
+              -o IdentitiesOnly=yes \
+              -o StrictHostKeyChecking=no \
+              -o UserKnownHostsFile=/dev/null \
+              ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_HOST }} << 'EOF'
+                set -e
+          
+                cd /opt/ms-clinique-rabat/microservices/springBoot/target
+          
+                pkill -f app.jar || true
+          
+                JAR_FILE=$(ls -1 *.jar | head -n 1)
+                echo "Using jar: $JAR_FILE"
+          
+                mv "$JAR_FILE" app.jar
+          
+                nohup java -jar app.jar \
+                  --spring.mail.host=${MAIL_HOST} \
+                  --spring.datasource.username=${DATABASE_USERNAME} \
+                  --spring.datasource.password=${DATABASE_USERPASSWORD} \
+                  --spring.datasource.url=${DATABASE_URL} \
+                  --spring.sql.init.mode=NEVER \
+                  > /var/log/ms-clinique-rabat.log 2>&1 < /dev/null &
+          
+                disown
+                exit 0
+          EOF
+        env:
+          MAIL_HOST: ${{ secrets.MAIL_HOST }}
+          DATABASE_USERNAME: ${{ secrets.DATABASE_USERNAME }}
+          DATABASE_USERPASSWORD: ${{ secrets.DATABASE_USERPASSWORD }}
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
