@@ -85,21 +85,23 @@ jobs:
             touch "$LOG_PATH"
 
             if [ ! -f "$JAR_PATH" ]; then
-              echo "ERREUR: JAR introuvable"
+              echo "❌ ERREUR: JAR introuvable"
               exit 1
             fi
 
-            echo "Recherche d'un ancien processus Java..."
+            echo "🔍 Recherche d'anciens processus Java..."
 
-            OLD_PID=$(pgrep -f "$JAR_PATH" || true)
+            OLD_PIDS=$(pgrep -f "$JAR_PATH" || true)
 
-            if [ -n "$OLD_PID" ]; then
-              echo "Arrêt de l'ancien process (PID=$OLD_PID)"
-              kill "$OLD_PID"
+            if [ -n "$OLD_PIDS" ]; then
+              echo "🛑 Arrêt des anciens processus : $OLD_PIDS"
+              for PID in $OLD_PIDS; do
+                kill "$PID" || true
+              done
               sleep 3
             fi
 
-            echo "Démarrage de l'application Spring Boot..."
+            echo "🚀 Démarrage de l'application Spring Boot..."
 
             setsid nohup java -jar "$JAR_PATH" \
               --spring.datasource.username="$DATABASE_USERNAME" \
@@ -116,7 +118,7 @@ jobs:
               echo "✅ Application démarrée avec succès (PID=$NEW_PID)"
             else
               echo "❌ Échec du démarrage"
-              echo "Logs :"
+              echo "📄 Logs :"
               cat "$LOG_PATH"
               exit 1
             fi
