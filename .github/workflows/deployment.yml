@@ -70,33 +70,41 @@ jobs:
           port: ${{ secrets.SERVER_PORT }}
           username: ${{ secrets.SERVER_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          envs: MAIL_HOST,DATABASE_USERNAME,DATABASE_USERPASSWORD,DATABASE_URL
+          envs: |
+            MAIL_HOST=${{ secrets.MAIL_HOST }}
+            DB_USER=${{ secrets.DATABASE_USERNAME }}
+            DB_PASS=${{ secrets.DATABASE_USERPASSWORD }}
+            DB_URL=${{ secrets.DATABASE_URL }}
           script: |
             JAR_PATH=/opt/ms-clinique-rabat/microservices/GestionClinique-0.0.1-SNAPSHOT.jar
             LOG_PATH=/opt/ms-clinique-rabat/app.log
 
+            # Vérifie que le JAR existe
             if [ ! -f "$JAR_PATH" ]; then
               echo "ERREUR: Le fichier $JAR_PATH n'existe pas !"
               exit 1
             fi
 
+            # Stoppe l'ancien processus si existant
             if pgrep -f GestionClinique-0.0.1-SNAPSHOT.jar > /dev/null; then
               echo "Arrêt de l'ancien processus..."
               pkill -f GestionClinique-0.0.1-SNAPSHOT.jar
               sleep 3
             fi
 
+            # Lancement du nouveau processus
             echo "Démarrage de l'application..."
             nohup java -jar "$JAR_PATH" \
               --spring.mail.host="$MAIL_HOST" \
-              --spring.datasource.username="$DATABASE_USERNAME" \
-              --spring.datasource.password="$DATABASE_USERPASSWORD" \
-              --spring.datasource.url="$DATABASE_URL" \
+              --spring.datasource.username="$DB_USER" \
+              --spring.datasource.password="$DB_PASS" \
+              --spring.datasource.url="$DB_URL" \
               --spring.sql.init.mode=true \
               > "$LOG_PATH" 2>&1 &
 
             sleep 2
 
+            # Vérifie si le processus a démarré
             if pgrep -f GestionClinique-0.0.1-SNAPSHOT.jar > /dev/null; then
               echo "Application démarrée avec succès !"
             else
