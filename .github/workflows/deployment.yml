@@ -95,7 +95,7 @@ jobs:
             echo "Démarrage de l'application..."
             nohup java -jar "$JAR_PATH" \
               --spring.datasource.username="$DATABASE_USERNAME" \
-              --spring.datasource.password="$DATABASE_USERPASSWORD" \
+              --spring.datasource.password="$DATABASE_USERPASSWORD"  \
               --spring.datasource.url="$DATABASE_URL" \
               --spring.sql.init.mode=true \
               > "$LOG_PATH" 2>&1 &
