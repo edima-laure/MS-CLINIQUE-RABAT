@@ -76,7 +76,12 @@ jobs:
             DATABASE_URL=${{ secrets.DATABASE_URL }}
           script: |
             JAR_PATH=/opt/ms-clinique-rabat/microservices/GestionClinique-0.0.1-SNAPSHOT.jar
-            LOG_PATH=/opt/ms-clinique-rabat/app.log
+            LOG_DIR=/opt/ms-clinique-rabat
+            LOG_PATH=$LOG_DIR/app.log
+
+            # Crée le dossier de logs si nécessaire
+            mkdir -p "$LOG_DIR"
+            touch "$LOG_PATH"
 
             # Vérifie que le JAR existe
             if [ ! -f "$JAR_PATH" ]; then
@@ -99,10 +104,11 @@ jobs:
               --spring.datasource.url="$DATABASE_URL" \
               --spring.sql.init.mode=true \
               > "$LOG_PATH" 2>&1 &
+
+            # Empêche la terminaison du processus à la fin du SSH
             disown
-  
-  
-  sleep 5
+
+            sleep 5
 
             # Vérifie si le processus a démarré
             if pgrep -f GestionClinique-0.0.1-SNAPSHOT.jar > /dev/null; then
