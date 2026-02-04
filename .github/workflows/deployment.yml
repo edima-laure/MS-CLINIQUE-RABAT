@@ -71,10 +71,9 @@ jobs:
           username: ${{ secrets.SERVER_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           envs: |
-            MAIL_HOST=${{ secrets.MAIL_HOST }}
-            DB_USER=${{ secrets.DATABASE_USERNAME }}
-            DB_PASS=${{ secrets.DATABASE_USERPASSWORD }}
-            DB_URL=${{ secrets.DATABASE_URL }}
+            DATABASE_USERNAME=${{ secrets.DATABASE_USERNAME }}
+            DATABASE_USERPASSWORD=${{ secrets.DATABASE_USERPASSWORD }}
+            DATABASE_URL=${{ secrets.DATABASE_URL }}
           script: |
             JAR_PATH=/opt/ms-clinique-rabat/microservices/GestionClinique-0.0.1-SNAPSHOT.jar
             LOG_PATH=/opt/ms-clinique-rabat/app.log
@@ -95,10 +94,9 @@ jobs:
             # Lancement du nouveau processus
             echo "Démarrage de l'application..."
             nohup java -jar "$JAR_PATH" \
-              --spring.mail.host="$MAIL_HOST" \
-              --spring.datasource.username="$DB_USER" \
-              --spring.datasource.password="$DB_PASS" \
-              --spring.datasource.url="$DB_URL" \
+              --spring.datasource.username="$DATABASE_USERNAME" \
+              --spring.datasource.password="$DATABASE_USERPASSWORD" \
+              --spring.datasource.url="$DATABASE_URL" \
               --spring.sql.init.mode=true \
               > "$LOG_PATH" 2>&1 &
 
