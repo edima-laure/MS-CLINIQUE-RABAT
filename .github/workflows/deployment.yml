@@ -99,8 +99,10 @@ jobs:
               --spring.datasource.url="$DATABASE_URL" \
               --spring.sql.init.mode=true \
               > "$LOG_PATH" 2>&1 &
-
-            sleep 5
+            disown
+  
+  
+  sleep 5
 
             # Vérifie si le processus a démarré
             if pgrep -f GestionClinique-0.0.1-SNAPSHOT.jar > /dev/null; then
